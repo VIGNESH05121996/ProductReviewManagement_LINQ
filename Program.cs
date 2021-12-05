@@ -21,7 +21,7 @@ namespace ProductReviewManagement_LINQ
                  new ProductReview() { ProductId = 4, UserId = 7, Review = "good", Rating = 7, IsLike = false },
                  new ProductReview() { ProductId = 5, UserId = 9, Review = "bad", Rating = 5, IsLike = true }
             };
-            CountreviewProductId(list);
+            RetriveProductId(list);
         }
         public static void RetriveTop3Records(List<ProductReview> list) //to retrive top 3 records 
         {
@@ -49,6 +49,15 @@ namespace ProductReviewManagement_LINQ
             foreach(var element in countId)
             {
                 Console.WriteLine("ProductId " + element.ProductId + "\t" + "Count" + element.count);
+            }
+        }
+
+        public static void RetriveProductId(List<ProductReview> list) //to retrive product id and review present in the list
+        {
+            var prodId = list.Select(product => new { ProductId = product.ProductId, Review = product.Review }).ToList();
+            foreach(var element in prodId)
+            {
+                Console.WriteLine("ProductId : " + element.ProductId + " \t " + "Review" + element.Review);
             }
         }
     }
