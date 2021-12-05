@@ -1,0 +1,8 @@
+./
+../
+ProductReviewManagement_LINQ/
+.vs/
+bin/
+bin/Debug/
+obj/
+
