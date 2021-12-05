@@ -21,15 +21,25 @@ namespace ProductReviewManagement_LINQ
                  new ProductReview() { ProductId = 4, UserId = 7, Review = "good", Rating = 7, IsLike = false },
                  new ProductReview() { ProductId = 5, UserId = 9, Review = "bad", Rating = 5, IsLike = true }
             };
-            RetriveTop3Records(list);
+            RetriveRecordsratingProductId(list);
         }
-        public static void RetriveTop3Records(List<ProductReview> list)
+        public static void RetriveTop3Records(List<ProductReview> list) //to retrive top 3 records 
         {
+            //LINQ syntax 
             var result = from product in list orderby product.Rating descending select product;
             var topThreeRecords = result.Take(3);
             foreach (ProductReview product in topThreeRecords)
             {
                 Console.WriteLine("ProductId: " + product.ProductId + " UserId: " + product.UserId + " Rating: " + product.Rating + " Review: " + product.Review + " IsLike: " + product.IsLike);
+            }
+        }
+
+        public static void RetriveRecordsratingProductId(List<ProductReview> list) //to retrive all records based on rating and product id
+        {
+            var records = (list.Where(r => r.Rating > 3 && (r.ProductId == 1 || r.ProductId == 4 || r.ProductId == 9))).ToList(); //here Where means List
+            foreach(var element in records)
+            {
+                Console.WriteLine("ProductId : " + element.ProductId + " Rating : " + element.Rating + " UserId : " + element.UserId + " Review : " + element.Review + " IsLike : " + element.IsLike);
             }
         }
     }
