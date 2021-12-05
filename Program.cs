@@ -41,7 +41,7 @@ namespace ProductReviewManagement_LINQ
         public static void RetriveRecordsratingProductId(List<ProductReview> list) //to retrive all records based on rating and product id
         {
             var records = (list.Where(r => r.Rating > 3 && (r.ProductId == 1 || r.ProductId == 4 || r.ProductId == 9))).ToList(); //here Where means List
-            foreach(var element in records)
+            foreach (var element in records)
             {
                 Console.WriteLine("ProductId : " + element.ProductId + " Rating : " + element.Rating + " UserId : " + element.UserId + " Review : " + element.Review + " IsLike : " + element.IsLike);
             }
@@ -50,7 +50,7 @@ namespace ProductReviewManagement_LINQ
         public static void CountreviewProductId(List<ProductReview> list) //to count product review based on product id
         {
             var countId = list.GroupBy(p => p.ProductId).Select(x => new { ProductId = x.Key, count = x.Count() });
-            foreach(var element in countId)
+            foreach (var element in countId)
             {
                 Console.WriteLine("ProductId " + element.ProductId + "\t" + "Count" + element.count);
             }
@@ -59,7 +59,7 @@ namespace ProductReviewManagement_LINQ
         public static void RetriveProductId(List<ProductReview> list) //to retrive product id and review present in the list
         {
             var prodId = list.Select(product => new { ProductId = product.ProductId, Review = product.Review }).ToList();
-            foreach(var element in prodId)
+            foreach (var element in prodId)
             {
                 Console.WriteLine("ProductId : " + element.ProductId + " \t " + "Review" + element.Review);
             }
@@ -93,15 +93,15 @@ namespace ProductReviewManagement_LINQ
             table.Columns.Add("Review", typeof(string));
             table.Columns.Add("IsLike", typeof(bool));
 
-            table.Rows.Add(1, 1, 17, "good", true);
+            table.Rows.Add(1, 1, 17, "nice", true);
             table.Rows.Add(2, 3, 1, "bad", false);
             table.Rows.Add(3, 5, 20, "average", true);
-            table.Rows.Add(4, 7, 7, "good", false);
+            table.Rows.Add(4, 7, 7, "nice", false);
             table.Rows.Add(5, 9, 5, "bad", true);
             table.Rows.Add(6, 11, 20, "average", false);
-            table.Rows.Add(7, 13, 7, "good", true);
+            table.Rows.Add(7, 13, 7, "nice", true);
             table.Rows.Add(8, 15, 5, "bad", false);
-            AverageRatingOfProductId(table);
+            RetrieveFromTableReviewNice(table);
         }
 
         public static void RetrieveFromTableLikeValueTrue(DataTable table) //to retrive fromtable whose like value is true
@@ -114,10 +114,20 @@ namespace ProductReviewManagement_LINQ
             }
         }
 
-        public static void AverageRatingOfProductId(DataTable table)
+        public static void AverageRatingOfProductId(DataTable table) //to find avereage 
         {
             double avgRating = (double)table.Select().Where(p => p["Rating"] != DBNull.Value).Select(c => Convert.ToDecimal(c["Rating"])).Average();
-            Console.WriteLine("\nAverage Rating Of ProductId: "+ avgRating);
+            Console.WriteLine("\nAverage Rating Of ProductId: " + avgRating);
+        }
+
+        public static void RetrieveFromTableReviewNice(DataTable table) //to retrive fromtable whose review  is nice
+        {
+            //AsEnumerable obj can be used in  LinQ expression or method
+            var result = (from product in table.AsEnumerable() where product.Field<string>("Review") == "nice" select product.Field<int>("ProductID")).ToList();
+            foreach (var product in result)
+            {
+                Console.WriteLine("Product ID : " + product);
+            }
         }
     }
 }
