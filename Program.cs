@@ -101,7 +101,7 @@ namespace ProductReviewManagement_LINQ
             table.Rows.Add(6, 11, 20, "average", false);
             table.Rows.Add(7, 13, 7, "good", true);
             table.Rows.Add(8, 15, 5, "bad", false);
-            RetrieveFromTableLikeValueTrue(table);
+            AverageRatingOfProductId(table);
         }
 
         public static void RetrieveFromTableLikeValueTrue(DataTable table) //to retrive fromtable whose like value is true
@@ -112,6 +112,12 @@ namespace ProductReviewManagement_LINQ
             {
                 Console.WriteLine("Product ID : " + product);
             }
+        }
+
+        public static void AverageRatingOfProductId(DataTable table)
+        {
+            double avgRating = (double)table.Select().Where(p => p["Rating"] != DBNull.Value).Select(c => Convert.ToDecimal(c["Rating"])).Average();
+            Console.WriteLine("\nAverage Rating Of ProductId: "+ avgRating);
         }
     }
 }
