@@ -19,9 +19,12 @@ namespace ProductReviewManagement_LINQ
                  new ProductReview() { ProductId = 2, UserId = 3, Review = "bad", Rating = 1, IsLike = false },
                  new ProductReview() { ProductId = 3, UserId = 5, Review = "average", Rating = 20, IsLike = true },
                  new ProductReview() { ProductId = 4, UserId = 7, Review = "good", Rating = 7, IsLike = false },
-                 new ProductReview() { ProductId = 5, UserId = 9, Review = "bad", Rating = 5, IsLike = true }
+                 new ProductReview() { ProductId = 5, UserId = 9, Review = "bad", Rating = 5, IsLike = true },
+                 new ProductReview() { ProductId = 6, UserId = 11, Review = "average", Rating = 20, IsLike = true },
+                 new ProductReview() { ProductId = 7, UserId = 13, Review = "good", Rating = 7, IsLike = false },
+                 new ProductReview() { ProductId = 8, UserId = 15, Review = "bad", Rating = 5, IsLike = true }
             };
-            RetriveProductId(list);
+            SkipTop5Records(list);
         }
         public static void RetriveTop3Records(List<ProductReview> list) //to retrive top 3 records 
         {
@@ -58,6 +61,16 @@ namespace ProductReviewManagement_LINQ
             foreach(var element in prodId)
             {
                 Console.WriteLine("ProductId : " + element.ProductId + " \t " + "Review" + element.Review);
+            }
+        }
+
+        public static void SkipTop5Records(List<ProductReview> list) //to skip top 5 records 
+        {
+            //LINQ syntax 
+            var skipTopThree = (list.Where(r => r.ProductId > 5)).ToList(); //here Where means List
+            foreach (ProductReview product in skipTopThree)
+            {
+                Console.WriteLine("ProductId: " + product.ProductId + " UserId: " + product.UserId + " Rating: " + product.Rating + " Review: " + product.Review + " IsLike: " + product.IsLike);
             }
         }
     }
