@@ -101,6 +101,17 @@ namespace ProductReviewManagement_LINQ
             table.Rows.Add(6, 11, 20, "average", false);
             table.Rows.Add(7, 13, 7, "good", true);
             table.Rows.Add(8, 15, 5, "bad", false);
+            RetrieveFromTableLikeValueTrue(table);
+        }
+
+        public static void RetrieveFromTableLikeValueTrue(DataTable table) //to retrive fromtable whose like value is true
+        {
+            //AsEnumerable obj can be used in  LinQ expression or method
+            var result = (from product in table.AsEnumerable() where product.Field<bool>("IsLike") == true select product.Field<int>("ProductID")).ToList();
+            foreach (var product in result)
+            {
+                Console.WriteLine("Product ID : " + product);
+            }
         }
     }
 }
