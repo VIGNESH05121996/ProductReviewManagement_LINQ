@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data;
 
 
 namespace ProductReviewManagement_LINQ
@@ -24,7 +25,7 @@ namespace ProductReviewManagement_LINQ
                  new ProductReview() { ProductId = 7, UserId = 13, Review = "good", Rating = 7, IsLike = false },
                  new ProductReview() { ProductId = 8, UserId = 15, Review = "bad", Rating = 5, IsLike = true }
             };
-            RetriveOnlyProductId(list);
+            CreateDatatable();
         }
         public static void RetriveTop3Records(List<ProductReview> list) //to retrive top 3 records 
         {
@@ -81,6 +82,25 @@ namespace ProductReviewManagement_LINQ
             {
                 Console.WriteLine("ProductId : " + element.ProductId);
             }
+        }
+
+        public static void CreateDatatable() //to create table and add product review details
+        {
+            DataTable table = new DataTable();
+            table.Columns.Add("ProductID", typeof(int));
+            table.Columns.Add("UserID", typeof(int));
+            table.Columns.Add("Rating", typeof(int));
+            table.Columns.Add("Review", typeof(string));
+            table.Columns.Add("IsLike", typeof(bool));
+
+            table.Rows.Add(1, 1, 17, "good", true);
+            table.Rows.Add(2, 3, 1, "bad", false);
+            table.Rows.Add(3, 5, 20, "average", true);
+            table.Rows.Add(4, 7, 7, "good", false);
+            table.Rows.Add(5, 9, 5, "bad", true);
+            table.Rows.Add(6, 11, 20, "average", false);
+            table.Rows.Add(7, 13, 7, "good", true);
+            table.Rows.Add(8, 15, 5, "bad", false);
         }
     }
 }
