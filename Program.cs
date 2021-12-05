@@ -24,7 +24,7 @@ namespace ProductReviewManagement_LINQ
                  new ProductReview() { ProductId = 7, UserId = 13, Review = "good", Rating = 7, IsLike = false },
                  new ProductReview() { ProductId = 8, UserId = 15, Review = "bad", Rating = 5, IsLike = true }
             };
-            SkipTop5Records(list);
+            RetriveOnlyProductId(list);
         }
         public static void RetriveTop3Records(List<ProductReview> list) //to retrive top 3 records 
         {
@@ -71,6 +71,15 @@ namespace ProductReviewManagement_LINQ
             foreach (ProductReview product in skipTopThree)
             {
                 Console.WriteLine("ProductId: " + product.ProductId + " UserId: " + product.UserId + " Rating: " + product.Rating + " Review: " + product.Review + " IsLike: " + product.IsLike);
+            }
+        }
+
+        public static void RetriveOnlyProductId(List<ProductReview> list) //Retrive only product id
+        {
+            var prodId = list.Select(product => new { ProductId = product.ProductId }).ToList();
+            foreach (var element in prodId)
+            {
+                Console.WriteLine("ProductId : " + element.ProductId);
             }
         }
     }
